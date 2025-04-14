@@ -12,7 +12,7 @@ export class Player {
             ArrowDown: false
         };
 
-        this.attackRange = 10; // How close enemies need to be to hit them
+        this.attackRange = 20; // How close enemies need to be to hit them
      
         this.updateUI();
         
@@ -31,8 +31,9 @@ export class Player {
             if (distance < this.attackRange) {
                 enemy.remove();   
                 enemies.splice(index, 1);
-                console.log("Enemy defeated!");
+                console.log("Enemy slain!");
             }
+            
         });
     }
 
@@ -48,7 +49,7 @@ export class Player {
         if (this.keyStates.ArrowUp) this.positionY += distance;
         if (this.keyStates.ArrowDown) this.positionY -= distance;
     
-        // Boundary checks (optional)
+        // Boundary checks
         this.positionX = Math.max(0, Math.min(100 - this.width, this.positionX));
         this.positionY = Math.max(0, Math.min(100 - this.height, this.positionY));
     

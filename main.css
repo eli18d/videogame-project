@@ -33,3 +33,9 @@ body {
     font-size: 6rem;
     text-align: center;
 }
+
+#page-gameover p {
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+}
