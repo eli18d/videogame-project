@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#board {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(216, 197, 232);
+    position: relative;
+    overflow: hidden;
+}
+
+#player {
+    background-color: red;
+    position: absolute;
+}
+
+.enemy {
+    position: absolute;
+    background-color: blue;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+#page-gameover {
+    
+    background-color: black;
+   
+}
+#page-gameover h1 {
+    color: red;
+    font-size: 6rem;
+    text-align: center;
+}
