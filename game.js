@@ -1,11 +1,10 @@
-import {Player} from "./player.js"
-import {Enemy} from "./enemy.js"
+import { Player } from "./player.js";
+import { Enemy } from "./enemy.js";
 
-window.enemies = [];
-
+window.enemies = []; // Global reference (not ideal but works for now)
 const player = new Player();
 
-
+// Event listeners for keyboard input
 document.addEventListener("keydown", (e) => {
     if (player.keyStates.hasOwnProperty(e.code)) {
         player.keyStates[e.code] = true;
@@ -25,11 +24,9 @@ function spawnEnemies(count, player) {
     }
 }
 
-
-// Game loop
-function gameLoop() {
-    player.move();
-    // You might also want to move enemies here if they're not moving themselves
+// Single game loop with delta-time
+function gameLoop(timestamp) {
+    player.move(enemies, timestamp); // Pass both enemies and timestamp
     requestAnimationFrame(gameLoop);
 }
 

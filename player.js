@@ -4,7 +4,7 @@ export class Player {
         this.height = 8;
         this.positionX = 50 - (this.width / 2);
         this.positionY = 50 - (this.height / 2);
-        this.speed = 0.2;
+        this.speed = 50;
         this.keyStates = {
             ArrowLeft: false,
             ArrowRight: false,
@@ -16,31 +16,26 @@ export class Player {
         
     }
 
-    move() {
-        if (this.keyStates.ArrowLeft) {
-            this.positionX -= this.speed;
-            // Prevent going off-screen left
-            if (this.positionX < 0) this.positionX = 0;
-        }
-        if (this.keyStates.ArrowRight) {
-            this.positionX += this.speed;
-            // Prevent going off-screen right
-            if (this.positionX > 100 - this.width) this.positionX = 100 - this.width;
-        }
-        if (this.keyStates.ArrowUp) {
-            this.positionY += this.speed;
-            // Prevent going off-screen top
-            if (this.positionY > 100 - this.height) this.positionY = 100 - this.height;
-        }
-        if (this.keyStates.ArrowDown) {
-            this.positionY -= this.speed;
-            // Prevent going off-screen bottom
-            if (this.positionY < 0) this.positionY = 0;
-        }
-        
+    move(enemies, timestamp) {
+        if (!this.lastTime) this.lastTime = timestamp;
+        const dt = (timestamp - this.lastTime) / 1000; // Delta time in seconds
+        this.lastTime = timestamp;
+    
+        const distance = this.speed * dt; // Movement scaled by time
+    
+        if (this.keyStates.ArrowLeft) this.positionX -= distance;
+        if (this.keyStates.ArrowRight) this.positionX += distance;
+        if (this.keyStates.ArrowUp) this.positionY += distance;
+        if (this.keyStates.ArrowDown) this.positionY -= distance;
+    
+        // Boundary checks (optional)
+        this.positionX = Math.max(0, Math.min(100 - this.width, this.positionX));
+        this.positionY = Math.max(0, Math.min(100 - this.height, this.positionY));
+    
         this.updateUI();
-        this.checkCollisions();
+        this.checkCollisions(enemies);
     }
+
 
     checkCollisions() {
         enemies.forEach(enemy => {
@@ -80,5 +75,4 @@ export class Player {
         playerElm.style.bottom = this.positionY + "vh";
     }
 }
-
 
