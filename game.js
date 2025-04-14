@@ -9,6 +9,11 @@ document.addEventListener("keydown", (e) => {
     if (player.keyStates.hasOwnProperty(e.code)) {
         player.keyStates[e.code] = true;
     }
+
+    // Spacebar triggers attack
+    if (e.code === "Space") {
+        player.attack(enemies);
+    }
 });
 
 document.addEventListener("keyup", (e) => {

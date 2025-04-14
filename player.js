@@ -4,16 +4,36 @@ export class Player {
         this.height = 8;
         this.positionX = 50 - (this.width / 2);
         this.positionY = 50 - (this.height / 2);
-        this.speed = 50;
+        this.speed = 45;
         this.keyStates = {
             ArrowLeft: false,
             ArrowRight: false,
             ArrowUp: false,
             ArrowDown: false
         };
+
+        this.attackRange = 10; // How close enemies need to be to hit them
      
         this.updateUI();
         
+    }
+
+    // Simple attack method
+    attack(enemies) {
+        enemies.forEach((enemy, index) => {
+            // Calculate distance to enemy
+            const distance = Math.sqrt(
+                Math.pow(this.positionX - enemy.positionX, 2) + 
+                Math.pow(this.positionY - enemy.positionY, 2)
+            );
+            
+            // If enemy is in range, remove it
+            if (distance < this.attackRange) {
+                enemy.remove();   
+                enemies.splice(index, 1);
+                console.log("Enemy defeated!");
+            }
+        });
     }
 
     move(enemies, timestamp) {

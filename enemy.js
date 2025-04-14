@@ -50,4 +50,8 @@ export class Enemy {
         this.enemyElement.style.left = this.positionX + "vw";
         this.enemyElement.style.bottom = this.positionY + "vh";
     }
+
+    remove() {
+        this.enemyElement.remove();
+    }
 }
