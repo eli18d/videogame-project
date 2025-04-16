@@ -45,6 +45,7 @@ export class Player {
                 enemy.remove();   
                 enemies.splice(index, 1);
                 console.log("Enemy slain!");
+                
             }
             
         });

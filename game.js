@@ -36,6 +36,7 @@ function instructionWithCountdown(value) {
         //REMOVE THIS ANNOYING DIV
         instructions.remove();
         console.log("...she eats dinner on tectonic plates")
+        startLevel();
         
     }
 }
@@ -73,7 +74,7 @@ document.addEventListener("keyup", (e) => {
 
 // Spawn enemies and adds more as levels increase
 function spawnEnemies() {
-    const enemyCount = 7 + currentLevel * 3; // Scale enemy count with level
+    const enemyCount = 7 + (currentLevel * 3); // Scale enemy count with level
     for (let i = 0; i < enemyCount; i++) {
         enemies.push(new Enemy(player));
     }
@@ -128,6 +129,10 @@ function gameLoop(timestamp) {
     
     player.move(enemies, timestamp);
     
+    enemies.forEach((enemy) => {
+        enemy.move(timestamp);
+    });
+    
     // Check level completion
     if (enemies.length === 0) {
         completeLevel();
@@ -138,4 +143,3 @@ function gameLoop(timestamp) {
 }
 
 // Initialize game
-startLevel();
