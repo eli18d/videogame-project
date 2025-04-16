@@ -12,14 +12,24 @@ export class Player {
             ArrowLeft: false,
             ArrowRight: false,
             ArrowUp: false,
-            ArrowDown: false
+            ArrowDown: false,
+            ShiftLeft: false,
         };
+
+        this.isDashing = false;
+        this.dashSpeed = 150; // Much faster than normal speed
+        this.dashDuration = 400; // 0.3 seconds
+        this.dashCooldown = 2000; // 2 seconds cooldown
+        this.lastDashTime = 0;
+        this.dashDirection = { x: 0, y: 0 };
 
         this.attackRange = 15; // How close enemies need to be to hit them
      
-        this.updateUI();
+        this.immunityEffectActive = false;
         
     }
+
+    
 
     // Simple attack method
     attack(enemies) {
@@ -40,24 +50,68 @@ export class Player {
         });
     }
 
+    startDash() {
+        const currentTime = performance.now();
+        
+        // This or will dash with no cooldown
+        if (this.isDashing || currentTime - this.lastDashTime < this.dashCooldown) {
+            return;
+        }
+
+        // dash direction based on player movement
+        this.dashDirection = { x: 0, y: 0 };
+        
+        if (this.keyStates.ArrowLeft) this.dashDirection.x = -1;
+        if (this.keyStates.ArrowRight) this.dashDirection.x = 1;
+        if (this.keyStates.ArrowUp) this.dashDirection.y = 1;
+        if (this.keyStates.ArrowDown) this.dashDirection.y = -1;
+        
+        // if no direction keys pressed, dash forward default
+        if (this.dashDirection.x === 0 && this.dashDirection.y === 0) {
+            this.dashDirection.x = 1; // default to right
+        }
+
+        // start dash
+        this.isDashing = true;
+        this.lastDashTime = currentTime;
+        this.lastHitTime = currentTime; // grant immunity
+    }
+
     move(enemies, timestamp) {
         if (!this.lastTime) this.lastTime = timestamp;
         const dt = (timestamp - this.lastTime) / 1000; // Delta time in seconds
         this.lastTime = timestamp;
     
-        const distance = this.speed * dt; // Movement scaled by time
     
-        if (this.keyStates.ArrowLeft) this.positionX -= distance;
-        if (this.keyStates.ArrowRight) this.positionX += distance;
-        if (this.keyStates.ArrowUp) this.positionY += distance;
-        if (this.keyStates.ArrowDown) this.positionY -= distance;
-    
+        if (this.isDashing) {
+            // Dash movement
+            const distance = this.dashSpeed * dt;
+            this.positionX += this.dashDirection.x * distance;
+            this.positionY += this.dashDirection.y * distance;
+            
+            // Check if dash duration has elapsed
+            if (timestamp - this.lastDashTime >= this.dashDuration) {
+                this.isDashing = false;
+                // Attack enemies at dash end position
+                console.log("i just called.. to say... i love uuu");
+                this.attack(enemies);
+            }
+        } else {
+            // Normal movement
+            const distance = this.speed * dt;
+            
+            if (this.keyStates.ArrowLeft) this.positionX -= distance;
+            if (this.keyStates.ArrowRight) this.positionX += distance;
+            if (this.keyStates.ArrowUp) this.positionY += distance;
+            if (this.keyStates.ArrowDown) this.positionY -= distance;
+        }
         // Boundary checks
         this.positionX = Math.max(0, Math.min(100 - this.width, this.positionX));
         this.positionY = Math.max(0, Math.min(100 - this.height, this.positionY));
     
         this.updateUI();
         this.checkCollisions(enemies);
+        
     }
 
     
@@ -104,14 +158,34 @@ export class Player {
         );
     }
 
-    
-
     updateUI() {
         const playerElm = document.getElementById("player");
         playerElm.style.width = this.width + "vw";
         playerElm.style.height = this.height + "vh";
         playerElm.style.left = this.positionX + "vw";
         playerElm.style.bottom = this.positionY + "vh";
+        
+        // visual effect for dashing
+        const currentTime = performance.now();
+        const isDashingImmune = this.isDashing || (currentTime - this.lastDashTime < this.dashDuration + 500); // +500 little extra, looks nicer
+        if (isDashingImmune) {
+            
+            // Flash effect - 
+            const flashSpeed = 0.2; 
+            const flashPhase = ((currentTime / 1000) % flashSpeed) / flashSpeed;
+            
+            if (flashPhase < 0.5) {
+                playerElm.style.filter = "brightness(2) drop-shadow(0 0 10px black)";
+            } else {
+                playerElm.style.filter = "brightness(1.2) drop-shadow(0 0 3px white)";
+            }
+            playerElm.style.transition = "filter 0.05s";
+        } else {
+            playerElm.style.filter = "none";
+            this.immunityEffectActive = false;
+        }
     }
+
+    
 }
 

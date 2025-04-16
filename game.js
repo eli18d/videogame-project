@@ -6,10 +6,43 @@ let currentLevel = 1;
 window.enemies = [];
 const player = new Player();
 
+
+
+
 // DOM elements
 const levelCleared = document.getElementById("levelCleared");
 const levelDisplay = document.getElementById("levelDisplay");
 const countdown = document.getElementById("countdown");
+const instructions = document.getElementById("instructions");
+const countdown2 = document.getElementById("countdown2");
+
+    
+let countdown2Value = 10;
+countdown2.textContent = countdown2Value;
+
+function instructionWithCountdown(value) {
+    // Update the display with current number
+    countdown2.textContent = value;
+    
+    
+    if (value > 0) {
+        
+        setTimeout(function() {
+            instructionWithCountdown(value - 1);
+            console.log("yo mamma is so fat...")
+        }, 1000);
+    } else {
+        // When countdown reaches 0:
+        //REMOVE THIS ANNOYING DIV
+        instructions.remove();
+        console.log("...she eats dinner on tectonic plates")
+        
+    }
+}
+
+
+instructionWithCountdown(countdown2Value);
+
 
 
 
@@ -23,7 +56,14 @@ document.addEventListener("keydown", (e) => {
     if (e.code === "Space") {
         player.attack(enemies);
     }
+
+    if (e.code === "ShiftLeft"){
+        console.log("dash?")
+        player.startDash();
+    }
 });
+
+
 
 document.addEventListener("keyup", (e) => {
     if (player.keyStates.hasOwnProperty(e.code)) {
@@ -64,17 +104,16 @@ function completeLevel() {
         // Update the display with current number
         countdown.textContent = value;
         
-        // Check if we should continue counting down
+        
         if (value > 0) {
-            // Wait 1 second, then show next number
+            
             setTimeout(function() {
                 runCountdown(value - 1);
             }, 1000);
         } else {
-            // When countdown reaches 0:
-            // 1. Hide the level cleared message
+           
             levelCleared.style.display = "none";
-            // 2. Start the next level
+            
             startLevel();
         }
     }
