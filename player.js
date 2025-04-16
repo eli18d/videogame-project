@@ -1,5 +1,8 @@
 export class Player {
     constructor() {
+        this.hitPoints = 5;
+        this.lastHitTime = 0;
+        this.immunityDuration = 2000; // 2 seconds of immunity after being hit
         this.width = 4;
         this.height = 8;
         this.positionX = 50 - (this.width / 2);
@@ -12,7 +15,7 @@ export class Player {
             ArrowDown: false
         };
 
-        this.attackRange = 20; // How close enemies need to be to hit them
+        this.attackRange = 15; // How close enemies need to be to hit them
      
         this.updateUI();
         
@@ -57,15 +60,30 @@ export class Player {
         this.checkCollisions(enemies);
     }
 
+    
+    checkCollisions(enemies) {
+       
+      const currentTime = performance.now();
 
-    checkCollisions() {
-        enemies.forEach(enemy => {
-            if (this.isCollidingWith(enemy)) {
-                console.log("Collision detected!");
-                location.href = "gameover.html";
-            }
-        });
-    }
+            enemies.forEach(enemy => {
+                
+                if (this.isCollidingWith(enemy)) {
+                    if (currentTime - this.lastHitTime >= this.immunityDuration) {
+                        console.log(this.hitPoints);
+                        this.hitPoints--;
+                        this.lastHitTime = currentTime;
+                    
+                        if (this.hitPoints === 0) {
+                            console.log("Collision detected!");
+                            location.href = "gameover.html";
+                        } else {
+                            console.log("hello where am i?");
+                        }
+                    }
+                }
+            });
+        }
+    
 
     isCollidingWith(enemy) {
         const playerLeft = this.positionX;

@@ -39,3 +39,36 @@ body {
     font-size: 3rem;
     text-align: center;
 }
+
+#play-again {
+
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+}
+
+#levelCleared {
+    background-color: black;
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Initially hidden */
+}
+
+#levelCleared h1 {
+    color: orange;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+#levelDisplay {
+    color: black;
+    font-size: 3rem;
+    text-align: center;
+}
+
+
