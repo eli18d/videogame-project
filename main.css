@@ -1,16 +1,22 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #1a1a1a;
+    font-family: 'MS Gothic', 'Courier New', monospace;
 }
 
 #board {
-    width: 100vw;
-    height: 100vh;
+    width: 99vw;
+    height: 99vh;
     background-image: url('./backgroundGame.png');
     background-size: cover;
     position: relative;
     overflow: hidden;
+    
+    border: 4px solid #d4a373;
 }
+
+
 
 #canvas {
     width: 100vw;
@@ -18,80 +24,146 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1; /* Ensure canvas is above the background */
+    z-index: 1; 
 }
 
 #player {
-    background-color: rgb(170, 228, 112);
+    background-color: #e63946;
     position: absolute;
+    box-shadow: 
+        0 0 0 2px #1a1a1a, 
+        0 0 0 4px #d4a373; 
+    border-radius: 2px;
 }
 
 .enemy {
     position: absolute;
-    background-color: blue;
+    background-color: #3a86ff;
     border-radius: 50%;
     transition: all 0.2s ease;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    box-shadow: 
+        0 0 0 2px #1a1a1a,
+        0 0 10px 2px rgba(255,0,0,0.5)
 }
 
-#instructions {
-    background-color: black;
-    color: white;
-    font-size: 1rem;
+#instructions
+{
+    background-color: rgba(26, 26, 26, 0.85);
+    color: #f8edeb;
+    border: 3px solid #d4a373; 
+    font-family: 'MS Gothic', 'Courier New', monospace;
+    text-shadow: 2px 2px 0 #1a1a1a;
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+#levelCleared
+{
     text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1
-    
-}
-
-#page-gameover {
-    
-    background-color: black;
-   
-}
-#page-gameover h1 {
-    color: red;
-    font-size: 6rem;
-    text-align: center;
-}
-
-#page-gameover p {
-    color: white;
-    font-size: 3rem;
-    text-align: center;
-}
-
-#play-again {
-
-    color: white;
-    font-size: 3rem;
-    text-align: center;
-}
-
-#levelCleared {
-    background-color: black;
-    color: white;
-    font-size: 3rem;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    background-color: rgba(26, 26, 26, 0.85);
+    color: #f8edeb;
+    border: 3px solid #d4a373; 
+    font-family: 'MS Gothic', 'Courier New', monospace;
+    text-shadow: 2px 2px 0 #1a1a1a;
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
     display: none; /* Initially hidden */
 }
 
+
 #levelCleared h1 {
-    color: orange;
-    font-size: 2.5rem;
+    color: #e63946; 
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 2px; 
+    text-shadow: 
+    3px 3px 0 #1a1a1a,
+    6px 6px 0 rgba(212, 163, 115, 0.3); 
+   
+}
+#page-gameover {
+    background-color: rgba(24, 32, 45, 0.9); 
+    color: #e0e5eb;
+    border: 4px solid #5a7d9a; 
+    font-family: 'MS Gothic', 'Courier New', monospace;
+    text-shadow: 2px 2px 0 #1a2632;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
 }
 
+#page-gameover h1 {
+    color: #9ab7d3; 
+    font-size: 2.5rem;
+    margin: 0 0 10px 0;
+    text-shadow: 
+        3px 3px 0 #1a2632,
+        5px 5px 0 rgba(58, 86, 112, 0.3);
+    letter-spacing: 1px;
+}
+
+#page-gameover p {
+    color: #c0cad4; 
+    font-size: 1.2rem;
+    margin: 0 0 20px 0;
+}
+
+#playAgain {
+    background-color: #3a86ff; 
+    color: #f8edeb;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'MS Gothic', 'Courier New', monospace;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: 2px solid #1a1a1a;
+    box-shadow: 
+        0 0 0 2px #5a7d9a,
+        3px 3px 0 #1a1a1a,
+   
+    
+}
+
+#playAgain:hover {
+    background-color: #5a7d9a; 
+    transform: translate(2px, 2px);
+    
+}
+
+
+img, #introGif {
+    position: relative;
+    width: 60%; 
+    max-width: 300px; 
+    left: 50%;
+    transform: translateX(-80%);
+    border: 2px solid #5a7d9a; 
+    margin: 10px 0;
+}
+#introGif {
+    position: relative;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    border: 2px solid #d4a373; 
+
+}
+
+
 #levelDisplay {
-    color: black;
-    font-size: 3rem;
     text-align: center;
+    top: 20px;
+    right: 20px;
+    color: #f8edeb;
+    background-color: rgba(212, 163, 115, 0.7);
+    padding: 5px 15px;
+    font-size: 2rem;
+    
 }
 
 

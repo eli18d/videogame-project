@@ -23,7 +23,7 @@ const countdown2 = document.getElementById("countdown2");
 
 
     
-let countdown2Value = 3;
+let countdown2Value = 5;
 countdown2.textContent = countdown2Value;
 
 function instructionWithCountdown(value) {
@@ -135,8 +135,10 @@ function gameLoop(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     player.move(enemies, timestamp);
-    player.drawHealthBar(ctx, canvas);  
+   
+    player.drawHealthBar(ctx);  
     player.checkCollisions(enemies, ctx);
+   
     
 
 

@@ -1,7 +1,7 @@
 export class Player {
     constructor() {
-        this.hitPoints = 8;
-        this.maxHitpoints = 8;
+        this.hitPoints = 3;
+        this.maxHitpoints = 3;
         this.lastHitTime = 0;
         this.immunityDuration = 3000; // 2 seconds of immunity after being hit
         this.width = 4;
@@ -27,10 +27,11 @@ export class Player {
         this.attackRange = 10; 
      
         this.immunityEffectActive = false;
+
+        
         
     }
 
-    
 
     // Simple attack method
     attack(enemies) {
@@ -164,20 +165,36 @@ export class Player {
 
     
 
-    drawHealthBar(ctx, canvas) {
-        
+    drawHealthBar(ctx) {
         const barWidth = 200;
         const barHeight = 20;
-        const x = canvas.width * 0.02;  // 2% from left
-        const y = canvas.height * 0.02; // 2% from top
-      
-        // Background (empty health)
-        ctx.fillStyle = "red";
+        const x = 20; // Fixed position 
+        const y = 20; // 
+    
+        // Main bar background 
+        ctx.fillStyle = '#2a1e1a';
         ctx.fillRect(x, y, barWidth, barHeight);
-      
-        // Current health
-        ctx.fillStyle = "green";
-        ctx.fillRect(x, y, barWidth * (this.hitPoints / this.maxHitpoints), barHeight);
+    
+        // Current health 
+        const currentWidth = barWidth * (this.hitPoints / this.maxHitpoints);
+        ctx.fillStyle = '#e63946';
+        ctx.fillRect(x, y, currentWidth, barHeight);
+    
+        // Gold border
+        ctx.strokeStyle = '#d4a373';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x, y, barWidth, barHeight);
+    
+    
+        // Text label 
+        ctx.fillStyle = '#f8edeb';
+        ctx.font = 'bold 14px "MS Gothic", "Courier New", monospace';
+        ctx.textBaseline = 'top';
+        ctx.fillText(
+            `HP: ${this.hitPoints}/${this.maxHitpoints}`,
+            x + 10,
+            y + 3
+        );
     }
 
     updateUI() {
