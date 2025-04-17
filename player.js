@@ -25,6 +25,7 @@ export class Player {
         this.dashDirection = { x: 0, y: 0 };
 
         this.attackRange = 10; 
+    
      
         this.immunityEffectActive = false;
 
@@ -35,6 +36,10 @@ export class Player {
 
     // Simple attack method
     attack(enemies) {
+        const currentTime = performance.now();
+        this.isAttacking = true; // Set attacking state
+        this.lastAttackTime = currentTime;
+
         enemies.forEach((enemy, index) => {
             // Calculate distance to enemy
             const distance = Math.sqrt(
@@ -175,7 +180,7 @@ export class Player {
         ctx.fillStyle = '#2a1e1a';
         ctx.fillRect(x, y, barWidth, barHeight);
     
-        // Current health 
+        // Current health (red)
         const currentWidth = barWidth * (this.hitPoints / this.maxHitpoints);
         ctx.fillStyle = '#e63946';
         ctx.fillRect(x, y, currentWidth, barHeight);
@@ -185,6 +190,7 @@ export class Player {
         ctx.lineWidth = 2;
         ctx.strokeRect(x, y, barWidth, barHeight);
     
+        
     
         // Text label 
         ctx.fillStyle = '#f8edeb';
@@ -203,6 +209,13 @@ export class Player {
         playerElm.style.height = this.height + "vh";
         playerElm.style.left = this.positionX + "vw";
         playerElm.style.bottom = this.positionY + "vh";
+
+         // Handle flipping - modified to maintain scale
+    if (this.keyStates.ArrowLeft) {
+        playerElm.style.transform = "scaleX(-6) scaleY(6)";
+    } else if (this.keyStates.ArrowRight) {
+        playerElm.style.transform = "scaleX(6) scaleY(6)";
+    }
         
         // visual effect for dashing
         const currentTime = performance.now();

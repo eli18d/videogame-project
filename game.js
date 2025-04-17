@@ -129,6 +129,7 @@ function completeLevel() {
     runCountdown(countdownValue);
 }
 
+
 // Main game loop 
 function gameLoop(timestamp) {
   

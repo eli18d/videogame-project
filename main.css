@@ -8,7 +8,7 @@ body {
 #board {
     width: 99vw;
     height: 99vh;
-    background-image: url('./backgroundGame.png');
+    background-image: url('./Untitleddesign1.png');
     background-size: cover;
     position: relative;
     overflow: hidden;
@@ -27,14 +27,7 @@ body {
     z-index: 1; 
 }
 
-#player {
-    background-color: #e63946;
-    position: absolute;
-    box-shadow: 
-        0 0 0 2px #1a1a1a, 
-        0 0 0 4px #d4a373; 
-    border-radius: 2px;
-}
+
 
 .enemy {
     position: absolute;
@@ -166,4 +159,19 @@ img, #introGif {
     
 }
 
+.player-sprite {
+    position: absolute;
+    background-image: url('vicotory-player-run.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.2s ease;
+    transform: scaleX(6) scaleY(6); /* Set default scale */
+    transform-origin: center;
+    overflow: visible; /* Ensure scaled content isn't clipped */
+   
+}
 
+.player-sprite.flipped {
+    transform: scaleX(-6) scaleY(6); /* Only flip for left movement */
+}
