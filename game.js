@@ -17,7 +17,7 @@ const instructions = document.getElementById("instructions");
 const countdown2 = document.getElementById("countdown2");
 
     
-let countdown2Value = 10;
+let countdown2Value = 3;
 countdown2.textContent = countdown2Value;
 
 function instructionWithCountdown(value) {
@@ -29,13 +29,13 @@ function instructionWithCountdown(value) {
         
         setTimeout(function() {
             instructionWithCountdown(value - 1);
-            console.log("yo mamma is so fat...")
+           
         }, 1000);
     } else {
-        // When countdown reaches 0:
+        
         //REMOVE THIS ANNOYING DIV
         instructions.remove();
-        console.log("...she eats dinner on tectonic plates")
+        
         startLevel();
         
     }
@@ -74,7 +74,7 @@ document.addEventListener("keyup", (e) => {
 
 // Spawn enemies and adds more as levels increase
 function spawnEnemies() {
-    const enemyCount = 7 + (currentLevel * 3); // Scale enemy count with level
+    const enemyCount = 7 + currentLevel * 5; // Scale enemy count with level
     for (let i = 0; i < enemyCount; i++) {
         enemies.push(new Enemy(player));
     }

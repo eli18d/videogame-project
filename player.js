@@ -1,8 +1,8 @@
 export class Player {
     constructor() {
-        this.hitPoints = 5;
+        this.hitPoints = 8;
         this.lastHitTime = 0;
-        this.immunityDuration = 2000; // 2 seconds of immunity after being hit
+        this.immunityDuration = 3000; // 2 seconds of immunity after being hit
         this.width = 4;
         this.height = 8;
         this.positionX = 50 - (this.width / 2);
@@ -19,11 +19,11 @@ export class Player {
         this.isDashing = false;
         this.dashSpeed = 150; // Much faster than normal speed
         this.dashDuration = 400; // 0.3 seconds
-        this.dashCooldown = 2000; // 2 seconds cooldown
+        this.dashCooldown = 1500; // 2 seconds cooldown
         this.lastDashTime = 0;
         this.dashDirection = { x: 0, y: 0 };
 
-        this.attackRange = 15; // How close enemies need to be to hit them
+        this.attackRange = 10; 
      
         this.immunityEffectActive = false;
         
@@ -42,9 +42,10 @@ export class Player {
             
             // If enemy is in range, remove it
             if (distance < this.attackRange) {
-                enemy.remove();   
+                 
                 enemies.splice(index, 1);
-                console.log("Enemy slain!");
+                enemy.remove();  
+                console.log(enemies.length);
                 
             }
             
@@ -94,7 +95,7 @@ export class Player {
             if (timestamp - this.lastDashTime >= this.dashDuration) {
                 this.isDashing = false;
                 // Attack enemies at dash end position
-                console.log("i just called.. to say... i love uuu");
+                
                 this.attack(enemies);
             }
         } else {
@@ -108,7 +109,7 @@ export class Player {
         }
         // Boundary checks
         this.positionX = Math.max(0, Math.min(100 - this.width, this.positionX));
-        this.positionY = Math.max(0, Math.min(100 - this.height, this.positionY));
+        this.positionY = Math.max(0, Math.min(70 - this.height, this.positionY));
     
         this.updateUI();
         this.checkCollisions(enemies);
@@ -127,12 +128,13 @@ export class Player {
                         console.log(this.hitPoints);
                         this.hitPoints--;
                         this.lastHitTime = currentTime;
+                        console.log("Collision detected!");
                     
                         if (this.hitPoints === 0) {
-                            console.log("Collision detected!");
+                
                             location.href = "gameover.html";
                         } else {
-                            console.log("hello where am i?");
+                            
                         }
                     }
                 }
