@@ -135,7 +135,7 @@ function gameLoop(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     player.move(enemies, timestamp);
-    player.drawHealthBar(ctx, canvas);  /
+    player.drawHealthBar(ctx, canvas);  
     player.checkCollisions(enemies, ctx);
     
 
