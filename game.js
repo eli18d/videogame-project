@@ -10,11 +10,17 @@ const player = new Player();
 
 
 // DOM elements
+
+const canvas = document.getElementById('gameCanvas'); // Make sure your HTML has <canvas id="gameCanvas">
+const ctx = canvas.getContext('2d');
+
+
 const levelCleared = document.getElementById("levelCleared");
 const levelDisplay = document.getElementById("levelDisplay");
 const countdown = document.getElementById("countdown");
 const instructions = document.getElementById("instructions");
 const countdown2 = document.getElementById("countdown2");
+
 
     
 let countdown2Value = 3;
@@ -126,9 +132,14 @@ function completeLevel() {
 // Main game loop 
 function gameLoop(timestamp) {
   
-    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     player.move(enemies, timestamp);
+    player.drawHealthBar(ctx, canvas);  /
+    player.checkCollisions(enemies, ctx);
     
+
+
     enemies.forEach((enemy) => {
         enemy.move(timestamp);
     });

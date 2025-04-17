@@ -12,6 +12,15 @@ body {
     overflow: hidden;
 }
 
+#canvas {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Ensure canvas is above the background */
+}
+
 #player {
     background-color: rgb(170, 228, 112);
     position: absolute;

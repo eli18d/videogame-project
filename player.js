@@ -1,6 +1,7 @@
 export class Player {
     constructor() {
         this.hitPoints = 8;
+        this.maxHitpoints = 8;
         this.lastHitTime = 0;
         this.immunityDuration = 3000; // 2 seconds of immunity after being hit
         this.width = 4;
@@ -117,8 +118,8 @@ export class Player {
     }
 
     
-    checkCollisions(enemies) {
-       
+    checkCollisions(enemies, ctx) {
+        
       const currentTime = performance.now();
 
             enemies.forEach(enemy => {
@@ -131,7 +132,7 @@ export class Player {
                         console.log("Collision detected!");
                     
                         if (this.hitPoints === 0) {
-                
+                            
                             location.href = "gameover.html";
                         } else {
                             
@@ -159,6 +160,24 @@ export class Player {
             playerTop > enemyBottom &&
             playerBottom < enemyTop
         );
+    }
+
+    
+
+    drawHealthBar(ctx, canvas) {
+        
+        const barWidth = 200;
+        const barHeight = 20;
+        const x = canvas.width * 0.02;  // 2% from left
+        const y = canvas.height * 0.02; // 2% from top
+      
+        // Background (empty health)
+        ctx.fillStyle = "red";
+        ctx.fillRect(x, y, barWidth, barHeight);
+      
+        // Current health
+        ctx.fillStyle = "green";
+        ctx.fillRect(x, y, barWidth * (this.hitPoints / this.maxHitpoints), barHeight);
     }
 
     updateUI() {
