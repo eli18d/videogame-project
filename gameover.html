@@ -18,6 +18,24 @@
      
    <p id ="playAgain"><a href="./index.html">再挑戦 (RETRY)</a></p> 
    <img src="./tumblr_mosthc4TQw1s80ppfo1_500.gif" alt="gif">
+
+   <audio id="gameOverMusic" loop autoplay>
+    <source src="./japanese-trap-beat-272645-[AudioTrimmer.com].mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    
+    const gameOverMusic = document.getElementById('gameOverMusic');
+    gameOverMusic.volume = 0.2;
+    
+    // Try to play immediately
+    gameOverMusic.play().catch(e => {
+        // If blocked, wait for user click
+        document.body.addEventListener('click', () => {
+            gameOverMusic.play();
+        }, { once: true });
+    });
+</script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 export class Player {
     constructor() {
-        this.hitPoints = 3;
-        this.maxHitpoints = 3;
+        this.hitPoints = 5;
+        this.maxHitpoints = 5;
         this.lastHitTime = 0;
         this.immunityDuration = 3000; // 2 seconds of immunity after being hit
         this.width = 4;
@@ -227,9 +227,9 @@ export class Player {
             const flashPhase = ((currentTime / 1000) % flashSpeed) / flashSpeed;
             
             if (flashPhase < 0.5) {
-                playerElm.style.filter = "brightness(2) drop-shadow(0 0 10px black)";
+                playerElm.style.filter = "brightness(3) drop-shadow(0 0 10px black)";
             } else {
-                playerElm.style.filter = "brightness(1.2) drop-shadow(0 0 3px white)";
+                playerElm.style.filter = "brightness(2) drop-shadow(0 0 3px white)";
             }
             playerElm.style.transition = "filter 0.05s";
         } else {

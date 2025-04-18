@@ -2,7 +2,7 @@ export class Enemy {
     constructor(player) {
         this.width = 5;
         this.height = 9;
-        this.speed = 15;
+        this.speed = 20;
         this.enemyElement = null;
         this.player = player;
         this.lastTime = 0; 
@@ -56,6 +56,12 @@ export class Enemy {
         // Apply movement with delta time
         this.positionX += direction.x * dt;
         this.positionY += direction.y * dt;
+
+        if (direction.x < 0) {
+            this.enemyElement.classList.add("flipped");  
+        } else {
+            this.enemyElement.classList.remove("flipped"); 
+        }
 
         const minDistance = 6; // Minimum space between enemies
         window.enemies.forEach(enemy => {

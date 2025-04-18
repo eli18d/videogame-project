@@ -6,7 +6,19 @@ let currentLevel = 1;
 window.enemies = [];
 const player = new Player();
 
+const bgMusic = document.getElementById('bgMusic');
 
+// Play music (must be triggered by user interaction)
+function startMusic() {
+  bgMusic.volume = 0.3; // Set volume (0.0 to 1.0)
+  bgMusic.play().catch(e => console.log("Audio play failed:", e));
+}
+
+document.body.addEventListener('click', () => {
+    startMusic();
+    document.body.removeEventListener('click', startMusic); // Remove after first click
+  }, { once: true });
+  
 
 
 // DOM elements
@@ -23,7 +35,7 @@ const countdown2 = document.getElementById("countdown2");
 
 
     
-let countdown2Value = 5;
+let countdown2Value = 6;
 countdown2.textContent = countdown2Value;
 
 function instructionWithCountdown(value) {
@@ -91,6 +103,7 @@ function spawnEnemies() {
 
 
 function startLevel() {
+    startMusic();
     
     spawnEnemies();
 
@@ -104,7 +117,7 @@ function completeLevel() {
     currentLevel++;
     levelCleared.style.display = "block";
     
-    let countdownValue = 5;
+    let countdownValue = 2;
     countdown.textContent = countdownValue;
 
     function runCountdown(value) {
