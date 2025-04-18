@@ -8,7 +8,8 @@ const player = new Player();
 
 const bgMusic = document.getElementById('bgMusic');
 
-// Play music (must be triggered by user interaction)
+startMusic();
+
 function startMusic() {
   bgMusic.volume = 0.3; // Set volume (0.0 to 1.0)
   bgMusic.play().catch(e => console.log("Audio play failed:", e));
@@ -103,7 +104,7 @@ function spawnEnemies() {
 
 
 function startLevel() {
-    startMusic();
+    
     
     spawnEnemies();
 
