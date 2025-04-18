@@ -1,6 +1,6 @@
 # ⚔️ Samurai Last Stand
 
-**Fight until your last breath. Nothing more glorious than a warrior's death.**
+**Fight until your last breath.**
 
 ## 🕹️ Controls
 
